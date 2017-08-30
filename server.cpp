@@ -9,19 +9,24 @@
  *        Created:  2017/08/30 15时01分38秒
  *       Revision:  none
  *       Compiler:  gcc
+ *       gcc -o server server.cpp
  *
  *         Author:  Jeremy Gong (Hustlion), hustlionm@qq.com
  *   Organization:  Hust
  *
  * =====================================================================================
  */
+#include <unistd.h>
 #include <sys/socket.h>
-// #include <arpa/inet.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <netdb.h>
 #include <iostream>
+
 
 const int kPort = 4897;
 const int kQLEN = 100;
-const int BLEN = 256;
+const int kBLEN = 256;
 
 int visits;
 
@@ -29,7 +34,7 @@ int main() {
     struct sockaddr_in self, client;
     struct hostent *cp;
     int sd, td, len;
-    char buf[BLEN];
+    char buf[kBLEN];
 
     sd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
     memset((char *) &self, 0, sizeof(struct sockaddr_in));
@@ -39,7 +44,7 @@ int main() {
 
     bind(sd, (struct sockaddr *) &self, sizeof(struct sockaddr_in));
 
-    listen(sd, QLEN);
+    listen(sd, kQLEN);
 
     while (1) {
         len = sizeof(struct sockaddr_in);
@@ -49,7 +54,7 @@ int main() {
         std::cout << "Connected from " << ((cp && cp->h_name) ? cp->h_name : inet_ntoa(client.sin_addr)) << std::endl;
 
         ++visits;
-        std::cout << "This server has been contacted " << visits << " time(s)." << endl;
+        std::cout << "This server has been contacted " << visits << " time(s)." << std::endl;
         send(td, buf, strlen(buf), 0);
         close(td);
     }
