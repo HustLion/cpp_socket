@@ -35,7 +35,7 @@ int main() {
     struct sockaddr_in self, client;
     struct hostent *cp;
     int sd, td, len;
-    char buf[kBLEN];
+    char buf[kBLEN] = "Greetings from server!";
 
     sd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
     memset((char *) &self, 0, sizeof(struct sockaddr_in));
@@ -46,6 +46,7 @@ int main() {
     bind(sd, (struct sockaddr *) &self, sizeof(struct sockaddr_in));
 
     listen(sd, kQLEN);
+    std::cout << "Server online" << std::endl;
 
     while (1) {
         len = sizeof(struct sockaddr_in);
