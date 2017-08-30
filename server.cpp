@@ -8,8 +8,8 @@
  *        Version:  1.0
  *        Created:  2017/08/30 15时01分38秒
  *       Revision:  none
- *       Compiler:  gcc
- *       gcc -o server server.cpp
+ *       Compiler:  gcc (g++ on MacOS)
+ *       g++ -o server server.cpp
  *
  *         Author:  Jeremy Gong (Hustlion), hustlionm@qq.com
  *   Organization:  Hust
@@ -17,6 +17,7 @@
  * =====================================================================================
  */
 #include <unistd.h>
+// #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
